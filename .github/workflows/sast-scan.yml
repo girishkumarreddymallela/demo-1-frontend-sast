@@ -12,7 +12,6 @@ jobs:
     name: Semgrep SAST & Secret Scanner
     runs-on: ubuntu-latest
 
-    # Run inside the official Semgrep Docker container
     container:
       image: semgrep/semgrep
 
@@ -21,12 +20,10 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # Step 2: Run Semgrep SAST Scan
-      # --error: Fails the build if findings are detected (Quality Gate)
-      # --sarif --output: Exports standardized SARIF report
+      # Step 2: Run Semgrep SAST Scan with Custom AppSec Rules & OWASP Top 10
       - name: Run Semgrep SAST Analysis
         run: |
-          semgrep scan --config p/javascript --config p/secrets --error --sarif --output=semgrep.sarif src/
+          semgrep scan --config .semgrep/frontend-rules.yml --config p/owasp-top-10 --error --sarif --output=semgrep.sarif src/
 
       # Step 3: Upload SARIF Report as downloadable artifact
       - name: Upload SAST Security Artifact

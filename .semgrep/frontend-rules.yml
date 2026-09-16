@@ -1,0 +1,18 @@
+rules:
+  - id: dom-xss-innerhtml-assignment
+    pattern: $EL.innerHTML = $EXPR
+    message: "Security Alert: Unsafe assignment to innerHTML with dynamic expression. Potential DOM XSS."
+    languages: [javascript, typescript]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation"
+      owasp: "A03:2021 - Injection"
+
+  - id: dangerous-eval-usage
+    pattern: eval($EXPR)
+    message: "Security Alert: Direct call to eval() detected. Dynamic code execution vulnerability."
+    languages: [javascript, typescript]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code"
+      owasp: "A03:2021 - Injection"
