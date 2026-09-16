@@ -1,0 +1,12 @@
+{
+  "name": "demo-1-frontend",
+  "version": "1.0.0",
+  "description": "Demo vulnerable frontend application for SAST CI/CD workflow testing",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "echo 'Serving frontend app...'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

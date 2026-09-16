@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo 1 - Vulnerable Frontend Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        input { padding: 8px; width: 300px; margin-right: 10px; }
+        button { padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        #welcome-msg { margin-top: 20px; padding: 10px; border-left: 4px solid #0066cc; background: #e6f0fa; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Welcome to Customer Portal</h1>
+        <p>Enter your username to personalize your session:</p>
+        <input type="text" id="username" placeholder="e.g. Alice">
+        <button onclick="renderGreeting()">Submit</button>
+
+        <div id="welcome-msg">Guest Session</div>
+    </div>
+
+    <script src="src/app.js"></script>
+</body>
+</html>

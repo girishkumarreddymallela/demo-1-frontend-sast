@@ -1,0 +1,45 @@
+name: Security SAST & Secrets Scan
+
+# Trigger SAST scan on pull requests and pushes to main/master branches
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master ]
+  # Allow security engineers to manually trigger the workflow from GitHub UI
+  workflow_dispatch:
+
+jobs:
+  sast_scan:
+    name: Semgrep SAST & Secret Scanner
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      # Step 1: Checkout the source code from git
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # Step 2: Run Semgrep SAST Scanner
+      # Semgrep scans source code statically without running the application
+      - name: Run Semgrep SAST Security Analysis
+        uses: returntocorp/semgrep-action@v1
+        with:
+          # Enable standard security rulepacks for JS, OWASP Top 10, and Secrets
+          config: >-
+            p/javascript
+            p/owasp-top-10
+            p/secrets
+          # Force pipeline failure if High or Critical severity flaws are found (Quality Gate)
+          auditOn: audit
+
+      # Step 3: (Optional) Upload results to GitHub Security tab (SARIF format)
+      - name: Upload SARIF report to GitHub Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+        continue-on-error: true
